@@ -1,50 +1,57 @@
-var Kitty = function(name) {
-	this.name = name;
-	var container = document.getElementsByClassName('container')[0];
-
-	var list = document.getElementsByClassName('catList')[0];
-
-	var box = document.createElement('div');
-	box.id = this.name + 'Box';
-	box.style.display = 'none';
-
-	var img = document.createElement('img');
-	img.src = 'http://placehold.it/300/200';
-	img.className = 'clickable';
-	img.id = this.name;
-
-	var nameH1 = document.createElement('h1');
-	nameH1.innerText = this.name;
-
-	var scoreP = document.createElement('p');
-	scoreP.className = 'score';
-	scoreP.id = this.name + 'Score';
-	scoreP.innerText = 0;
-
-	var li = document.createElement('li');
-	li.id = this.name + 'List';
-	li.innerText = this.name;
-
-	this.score = 0;
-	this.selected = false;
-
-
-	container.appendChild(box);
-	this.box = document.getElementById(box.id);
-	this.box.appendChild(nameH1);
-	this.box.appendChild(img);
-	this.box.appendChild(scoreP);
-	list.appendChild(li);
-
-	this.img = document.getElementById(img.id);
-	this.scoreP = document.getElementById(scoreP.id);
-	this.li = document.getElementById(li.id);
-
-	this.img.addEventListener('click', this.click.bind(this), false);
-	this.li.addEventListener('click', this.select.bind(this), false);
+var model = {
+  [
+    {
+      name: Bridget,
+      img: 'http://placehold.it/300/200',
+      score: 0
+    },
+    {
+      name: 'Eleanor',
+      img: 'http://placehold.it/200/200',
+      score: 0
+    },
+    {
+      name: 'Lillian',
+      img: 'http://placehold.it/200/100',
+      score: 0
+    },
+    {
+      name: 'Elliot',
+      img: 'http://placehold.it/100/100',
+      score: 0
+    },
+    {
+      name: 'Dorian',
+      img: 'http://placehold.it/100/50',
+      score: 0
+    }
+  ],
+  currCat = 0
 };
 
-Kitty.prototype.select = function() {
+var list = {
+  init: function(cats) {
+    this.ul = document.getElementById('catList');
+    this.render();
+  }'
+  render: function() {
+    var cats = theHand.getCats();
+    var clicker = theHand.getClicker();
+    cats.forEach(function(cat) {
+      var catLi = document.createElement('li');
+      catLi.innerText = cat.name;
+      this.ul.appendChild(catLi);
+      catLi.addEventLister('click', (function(cat) {
+        return function() {
+          cats[clicker].classList.remove('selected');
+          theHand.changeCat(cat);
+        };
+        })(cat));
+    }
+  }
+};
+	
+	
 	kittens.forEach(function(kitten) {
 		kitten.selected = false;
 		kitten.li.classList.remove('selected');
