@@ -1,0 +1,22 @@
+.container {
+	display: flex;
+}
+
+.litterbox {
+	margin: auto;
+	text-align: center;
+}
+
+.score {
+	font: 20pt bold;
+	text-align: center;
+}
+
+.catList {
+	list-style: none;
+	float: left;
+}
+
+.selected {
+	background-color: rgba(83, 281, 101, 0.7);
+}
