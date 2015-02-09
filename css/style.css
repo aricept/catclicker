@@ -13,6 +13,11 @@
 	width: 20em;
 }
 
+#catImg {
+	height: 200px;
+	width: auto;
+}
+
 li {
 	display: inline;
 	list-style: none outside;
