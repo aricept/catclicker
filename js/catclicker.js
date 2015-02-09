@@ -46,7 +46,7 @@ var list = {
     var clicker = theHand.getClicker();
     cats.forEach(function(cat) {
       var catLi = document.createElement('li');
-      catLi.innerText = cat.name;
+      catLi.textContent = cat.name;
       list.ul.appendChild(catLi);
       theHand.setLi(cat, catLi);
       catLi.addEventListener('click', (function(cat) {
@@ -68,8 +68,8 @@ var gameBoard = {
   render: function() {
     var clicker = theHand.getClicker();
     this.img.src = clicker.img;
-    this.catName.innerText = clicker.name;
-    this.score.innerText = clicker.score;
+    this.catName.textContent = clicker.name;
+    this.score.textContent = clicker.score;
   },
   init: function() {
     this.img = document.getElementById('catImg');
@@ -86,10 +86,12 @@ var theHand = {
   scoreUpdate: function() {
     model.currCat.score++;
     gameBoard.render();
+    admin.render();
   },
   changeCat: function(cat) {
     model.currCat = cat;
     gameBoard.render();
+    admin.render();
   },
   getCats: function() {
     return model.cats;
@@ -118,10 +120,16 @@ var theHand = {
     if (info === 'url') {
       var urlTest = /^http:\/\/|^https:\/\//i;
       if(urlTest.test(value)) {
-        return model.currCat[info] = value;
+        return function() {
+          model.currCat[info] = value;
+          gameBoard.render();
+        };
       }
       else {
-        return model.currCat[info] = 'http://' + value;
+        return function() {
+          model.currCat[info] = 'http://' + value;
+          gameBoard.render();
+        };
       }
     }
     model.currCat[info] = value;
@@ -138,6 +146,9 @@ var admin = {
     this.nameField = document.getElementById('nameField');
     this.urlField = document.getElementById('urlField');
     this.scoreField = document.getElementById('scoreField');
+    this.activate = document.getElementById('activate');
+    this.cancel = document.getElementById('cancel');
+    this.save = document.getElementById('save');
     admin.render();
   },
   render: function() {
@@ -150,6 +161,17 @@ var admin = {
     else {
       this.adminPanel.style.visibility = 'hidden';
     }
+    this.activate.addEventListener('click', function() {
+      theHand.adminMode(true);
+      this.render();
+    });
+    this.cancel.addEventListener('click', function() {
+      theHand.adminMode(false);
+      this.render();
+    });
+    this.save.addEventListener('click', function() {
+      this.update();
+    });
   },
   update: function() {
     if (this.nameField.value !== theHand.getInfo('name')) {
@@ -161,9 +183,6 @@ var admin = {
     if (scoreField.value !== theHand.getInfo('score')) {
       theHand.changeInfo('score', this.scoreField.value);
     }
-  },
-  cancel: function() {
-    theHand.adminMode(false);
   }
 };
 
