@@ -1,5 +1,6 @@
 .container {
 	margin: auto;
+	width: 66%;
 }
 
 .score {
@@ -26,3 +27,20 @@ li {
 	margin-right: 1em;
 }
 
+.admin {
+	width: 10em;
+	display: block;
+	margin-bottom: 3px;
+}
+
+#admin-right {
+	float: right;
+}
+
+.admin:first-of-type {
+	margin-top: 3px;
+}
+
+.admin-button {
+	width: 5em;
+}
