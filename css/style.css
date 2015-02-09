@@ -1,10 +1,5 @@
 .container {
-	display: flex;
-}
-
-.litterbox {
 	margin: auto;
-	text-align: center;
 }
 
 .score {
@@ -13,10 +8,21 @@
 }
 
 .catList {
-	list-style: none;
 	float: left;
+	width: 20em;
+}
+
+li {
+	display: inline;
+	list-style: none outside;
+	margin-right: 1em;
 }
 
 .selected {
 	background-color: rgba(83, 281, 101, 0.7);
 }
+
+.info {
+	margin-right: 1em;
+}
+
