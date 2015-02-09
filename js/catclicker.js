@@ -113,26 +113,21 @@ var theHand = {
   },
   changeInfo: function(info, value) {
     if (info === 'score' && isNaN(value)) {
-      return function() {
         alert('Score may only be numbers');
-      };
     }
     if (info === 'url') {
       var urlTest = /^http:\/\/|^https:\/\//i;
       if(urlTest.test(value)) {
-        return function() {
-          model.currCat[info] = value;
-          gameBoard.render();
-        };
+        model.currCat[info] = value;
       }
       else {
-        return function() {
-          model.currCat[info] = 'http://' + value;
-          gameBoard.render();
-        };
+        model.currCat[info] = 'http://' + value;
       }
     }
-    model.currCat[info] = value;
+    else {
+      model.currCat[info] = value;
+    }
+    gameBoard.render();
   },
   adminMode: function(mode) {
     model.admin = mode;
@@ -155,7 +150,7 @@ var admin = {
     if (model.admin) {
       this.adminPanel.style.visibility = 'visible';
       this.nameField.value = theHand.getInfo('name');
-      this.urlField.value = theHand.getInfo('url');
+      this.urlField.value = theHand.getInfo('img');
       this.scoreField.value = theHand.getInfo('score');
     }
     else {
@@ -163,26 +158,25 @@ var admin = {
     }
     this.activate.addEventListener('click', function() {
       theHand.adminMode(true);
-      this.render();
     });
     this.cancel.addEventListener('click', function() {
       theHand.adminMode(false);
-      this.render();
     });
     this.save.addEventListener('click', function() {
-      this.update();
+      admin.update();
     });
   },
   update: function() {
     if (this.nameField.value !== theHand.getInfo('name')) {
       theHand.changeInfo('name', this.nameField.value);
     }
-    if (urlField.value !== theHand.getInfo('url')) {
-      theHand.changeInfo('name', this.urlField.value);
+    if (urlField.value !== theHand.getInfo('img')) {
+      theHand.changeInfo('img', this.urlField.value);
     }
     if (scoreField.value !== theHand.getInfo('score')) {
       theHand.changeInfo('score', this.scoreField.value);
     }
+    this.render();
   }
 };
 
